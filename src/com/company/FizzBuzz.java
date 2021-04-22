@@ -1,10 +1,9 @@
 package com.company;
 
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 
 public class FizzBuzz {
@@ -19,8 +18,7 @@ public class FizzBuzz {
 
     public void run(){
         IntStream.range(startInclusive, endExclusive)
-                .boxed()
-                .map(
+                .mapToObj(
                         i -> divisorOutput.entrySet()
                                 .stream()
                                 .filter(divisorOutputEntry -> i % divisorOutputEntry.getKey() == 0)
