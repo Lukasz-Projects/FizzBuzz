@@ -59,6 +59,13 @@ class FizzBuzzTest {
         assertEquals(Integer.toString(number),fakePrintStream.getLastPrinted());
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {1, 10, 99, 250})
+    void run_countLines(int number) {
+        new FizzBuzz(fakePrintStream,1,1+number,divisorOutput).print();
+        assertEquals(number,fakePrintStream.getAllPrintedAsString().lines().count());
+    }
+
     @AfterAll
     static void avoid_memory_leak(){
         divisorOutput = null;
