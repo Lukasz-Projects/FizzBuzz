@@ -19,7 +19,7 @@ public class FizzBuzz {
         this.divisorOutput = divisorOutput;
     }
 
-    public void run() {
+    public void print() {
         IntStream.range(startInclusive, endExclusive)
                 .mapToObj(
                         i -> divisorOutput.entrySet()
@@ -42,6 +42,6 @@ public class FizzBuzz {
                 1,
                 101,
                 new TreeMap<>(divisorOutputMap)
-        ).run();
+        ).print();
     }
 }
