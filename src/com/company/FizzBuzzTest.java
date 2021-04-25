@@ -63,7 +63,7 @@ class FizzBuzzTest {
     @ValueSource(ints = {1, 10, 99, 250, 2_065_321})
     void run_countLines(int number) {
         new FizzBuzz(fakePrintStream,1,1+number,divisorOutput).print();
-        assertEquals(number,fakePrintStream.getAllPrintedAsString().lines().count());
+        assertEquals(number,fakePrintStream.getLinesCounter());
     }
 
     @AfterAll
@@ -74,38 +74,39 @@ class FizzBuzzTest {
 
     static class FakePrintStream extends PrintStream{
         private String lastPrinted;
-        private StringBuilder allPrinted;
+        private long linesCounter;
+
+        private void init(){
+            lastPrinted = "";
+            linesCounter = 0;
+        }
 
         public FakePrintStream() {
             super(new ByteArrayOutputStream());
-            allPrinted = new StringBuilder();
-            lastPrinted = "";
+            init();
         }
 
         @Override
         public void println(String print){
             lastPrinted = print;
-            allPrinted.append(print);
-            allPrinted.append('\n');
+            linesCounter++;
         }
 
         @Override
         public void print(String print){
             lastPrinted = print;
-            allPrinted.append(print);
         }
 
         public String getLastPrinted() {
             return lastPrinted;
         }
 
-        public String getAllPrintedAsString() {
-            return allPrinted.toString();
+        public long getLinesCounter() {
+            return linesCounter;
         }
 
         public void clear(){
-            allPrinted = new StringBuilder();
-            lastPrinted = "";
+            init();
         }
     }
 }
